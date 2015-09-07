@@ -19,6 +19,11 @@
 * Open in your browser.
 
 ##Database
+Create Database shoe_stores;
+CREATE DATABASE shoe_stores_test WITH TEMPLATE shoe_stores;
+Create Table stores (id serial primary key, name varchar);
+Create Table brands (id serial primary key, description varchar);
+Create Table stores_brands (id serial primary key);
 
 
 ## Technologies Used
