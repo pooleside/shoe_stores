@@ -1,0 +1,26 @@
+<br>
+<br>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8 well">
+
+    <h3>Update $brand.getDescription()</h3>
+
+    <!--<form action="/$store.getId()/brands/$brand.getId()/update" method="post"> -->
+    <form action="/brands/$brand.getId()/update" method="post">
+      <div class="form-group">
+        <label for="description">Update Brand</label>
+        <input id="description" name="description" type="text" class="form-control">
+      </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+
+<br>
+    <form action="/brands/$brand.getId()/delete" method="post">
+      <button type="submit" class="btn btn-info $brand.getDescription()">Delete Brand</button>
+    </form>
+
+
+  </div>
+  <div class="col-md-2"></div>
+</div>

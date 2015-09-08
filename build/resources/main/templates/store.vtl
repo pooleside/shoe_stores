@@ -1,0 +1,39 @@
+<h1>$store.getName</h1>
+
+#if($store.getBrands())
+  <p>Here are the brands for this store:</p>
+  <ul>
+    #foreach($brand in $store.getBrands())
+      <li>$brand.getDescription()
+    #if ($brand.getCompleted())
+     <span>Brand is complete</span>
+     #end
+        <form action="/brands/$brand.getId()/complete" method="post">
+            <label>
+             <input id="store_id"  type="hidden" name="store_id" value="$store.getId()">
+              <input id="checked_id"  type="hidden" name="brand_id" value="$brand.getId()">
+            </label>
+            <button type="submit" class="btn btn-info">Check as Complete</button>
+        </form>
+
+      </li>
+    #end
+  </ul>
+#end
+
+<h4>Add a brand to this store:</h4>
+
+<form action='/add_brands' method='post'>
+    <input id="store_id" name="store_id" type="hidden" value="$store.getId()">
+    <label for="brand_id">Select a brand</label>
+    <select id='brand_id' name='brand_id' type='text'>
+      #foreach($brand in $allBrands)
+        <option value="$brand.getId()"> $brand.getDescription() </option>
+      #end
+    </select>
+    <button type='submit'>Add brand</button>
+</form>
+
+<p><a href="/stores/$store.getId()/update">Edit this store</a></p>
+
+<p><a href='/'>Home</a></p>
