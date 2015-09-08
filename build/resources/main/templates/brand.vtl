@@ -16,7 +16,7 @@
     <label for="store_id">Select a store</label>
     <select id='store_id' name='store_id' type='text'>
       #foreach($store in $allStores)
-        <option value="$store.getId()"> $store.getName(),$store.getStoreNum()</option>
+        <option value="$store.getId()"> $store.getName()</option>
       #end
     </select>
     <button type='submit'>Add store</button>

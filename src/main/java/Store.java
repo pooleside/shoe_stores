@@ -63,25 +63,16 @@ public class Store {
     }
   }
 
-  public ArrayList<Brand> getBrands() {
+  public List<Brand> getBrands() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "SELECT brand_id FROM stores_brands WHERE store_id = :store_id";
-      List<Integer> brandIds = con.createQuery(sql)
+      String sql = "SELECT brands.* FROM stores_brands Join brands on stores_brands.brand_id = brands.id WHERE store_id = :store_id";
+      List<Brand> brands = con.createQuery(sql)
         .addParameter("store_id", this.getId())
-        .executeAndFetch(Integer.class);
-
-      ArrayList<Brand> brands = new ArrayList<Brand>();
-
-      for (Integer brandId : brandIds) {
-        String brandQuery = "SELECT * FROM brands WHERE id = :brandId";
-        Brand brand = con.createQuery(brandQuery)
-          .addParameter("brandId", brandId)
-          .executeAndFetchFirst(Brand.class);
-        brands.add(brand);
+        .executeAndFetch(Brand.class);
+        return brands;
       }
-      return brands;
+
     }
-  }
 
   public void delete() {
     try(Connection con = DB.sql2o.open()) {

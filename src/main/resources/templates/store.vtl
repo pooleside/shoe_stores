@@ -1,19 +1,15 @@
-<h1>$store.getName</h1>
+<h1>$store.getName()</h1>
 
 #if($store.getBrands())
   <p>Here are the brands for this store:</p>
   <ul>
     #foreach($brand in $store.getBrands())
       <li>$brand.getDescription()
-    #if ($brand.getCompleted())
-     <span>Brand is complete</span>
-     #end
-        <form action="/brands/$brand.getId()/complete" method="post">
-            <label>
+
+        <form action="/brands/$brand.getId()" method="post">
              <input id="store_id"  type="hidden" name="store_id" value="$store.getId()">
               <input id="checked_id"  type="hidden" name="brand_id" value="$brand.getId()">
-            </label>
-            <button type="submit" class="btn btn-info">Check as Complete</button>
+
         </form>
 
       </li>

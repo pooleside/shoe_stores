@@ -63,25 +63,17 @@ public class Brand {
     }
   }
 
-    public ArrayList<Store> getStores() {
+    public List<Store> getStores() {
       try(Connection con = DB.sql2o.open()) {
-        String sql = "SELECT store_id FROM stores_brands WHERE brand_id = :brand_id";
-        List<Integer> storeIds = con.createQuery(sql)
+        String sql = "SELECT stores.* FROM stores_brands Join stores on stores_brands.store_id = stores.id WHERE brand_id = :brand_id";
+        List<Store> stores = con.createQuery(sql)
           .addParameter("brand_id", this.getId())
-          .executeAndFetch(Integer.class);
-
-          ArrayList<Store> stores = new ArrayList<Store>();
-
-          for(Integer storeId : storeIds) {
-            String brandQuery = "SELECT * FROM stores WHERE id = :storeId";
-            Store store = con.createQuery(brandQuery)
-              .addParameter("storeId", storeId)
-              .executeAndFetchFirst(Store.class);
-            stores.add(store);
-        }
+          .executeAndFetch(Store.class);
           return stores;
+        }
+
     }
-  }
+
 
     public void delete() {
       try(Connection con = DB.sql2o.open()) {
@@ -97,14 +89,6 @@ public class Brand {
       }
     }
 
-    public void markCompleted() {
-      try(Connection con = DB.sql2o.open()) {
-        String sql = "UPDATE brands SET completed = true WHERE id = :brandId";
-          con.createQuery(sql)
-          .addParameter("brandId", this.getId())
-          .executeUpdate();
-      }
-    }
 
     public void update(String description) {
       try(Connection con = DB.sql2o.open()) {
